@@ -1,0 +1,253 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: pipeline
+  name: multi-agent-test
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "pipeline {\n    agent any  // This runs at the top-level of the pipeline\n\
+        \    \n    stages {\n        stage('first') {\n            agent any   //\
+        \ Specify the label of the first agent\n            steps {\n            \
+        \    echo \"sleeping 60\"\n                sleep 60\n                echo\
+        \ \"done sleeping 60\"\n            }\n        }\n        stage('second')\
+        \ {\n            agent { label 'rhel' }  // Specify the label of the second\
+        \ agent\n            steps {\n                echo \"sleeping 120\"\n    \
+        \            sleep 120\n                echo \"done sleeping 120\"\n     \
+        \       }\n        }\n    }\n}"
+  description: ''
+  disabled: false
+  displayName: multi-agent-test
+  properties:
+  - conjurJITJobProperty:
+      inheritFromParent: true
+      conjurConfiguration:
+        conjurConfiguration:
+          credentialID: ''
+          certificateCredentialID: ''
+          account: ''
+          applianceURL: ''
+      authWebServiceId: ''
+      useJustInTime: false
+      hostPrefix: ''
+  resumeBlocked: false
+- kind: pipeline
+  name: ParallelDockerTest
+  concurrentBuild: true
+  definition:
+    cpsScmFlowDefinition:
+      scriptPath: JenkinsfileSequential
+      scm:
+        scmGit:
+          userRemoteConfigs:
+          - userRemoteConfig:
+              url: https://github.com/jamesfluke/ParallelDockerTest.git
+          branches:
+          - branchSpec:
+              name: '*/main'
+      lightweight: true
+  description: ''
+  disabled: false
+  displayName: ParallelDockerTest
+  properties:
+  - conjurJITJobProperty:
+      inheritFromParent: true
+      conjurConfiguration:
+        conjurConfiguration:
+          credentialID: ''
+          certificateCredentialID: ''
+          account: ''
+          applianceURL: ''
+      authWebServiceId: ''
+      useJustInTime: false
+      hostPrefix: ''
+  - githubProjectProperty:
+      displayName: ''
+      projectUrlStr: https://github.com/jamesfluke/ParallelDockerTest.git/
+  - pipelineTriggers:
+      triggers:
+      - githubPush: {}
+  resumeBlocked: false
+- kind: pipeline
+  name: psTest
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "// def components = [:]\n\npipeline {\n    \n    agent {\n        docker\
+        \ {\n            // alwaysPull true // dont keep this; just for testing\n\
+        \            image 'us-west3-docker.pkg.dev/cloudbeestestingproject/testdockerrepo/psbase'\
+        \            \n            // label 'pho-cbbld-q01' \n            //label\
+        \ 'linux && docker && dotnet'\n        }\n    }\n    stages{\n        stage('Hello'){\n\
+        \            steps{\n                sh java -version\n            }\n   \
+        \     }\n    }\n\n    // environment {\n    //     GOOGLE_APPLICATION_CREDENTIALS=credentials('gcp-jenkins-automation-service-account-nonprod')\n\
+        \    //     CI_GHE = credentials('svc-githubjira')\n    //     CI_RT = credentials('artifactory-kmackow-apikey')\n\
+        \    //     CI_SONARQUBE = credentials('sonarqube-ssg-petsmart-com')\n   \
+        \ // }\n\n    // options {\n    //     ansiColor('xterm')\n    // }\n    \n\
+        \    // stages {\n    //     stage('Initialize Workspace') {\n    //     \
+        \    steps {\n    //             script {\n    //                 sh 'git\
+        \ clean -dxf'\n\n    //                 sh(\n    //                     label:\
+        \ 'Install Latest Foreman Library',\n    //                     script: \"\
+        \"\"\n    //                     pip install git+https://^${CI_GHE_PSW}@github.ssg.petsmart.com/Development/devops-tools-foreman2@master#subdirectory=foreman\n\
+        \    //                     \"\"\"\n    //                 )\n           \
+        \         \n    //                 def componentsOutput = sh(script: 'foreman\
+        \ build component-summary', returnStdout: true).trim()\n    //           \
+        \      components = readJSON text: componentsOutput\n    //             }\n\
+        \    //         }\n    //     }\n\n    //     // parallel(generateJobs(components,\
+        \ mainWorkspace))\n    // }\n}\n\n// run one for each discovered component\n\
+        // def generateJobs(components, pwd) {\n//     def componentJobs = [:]\n//\
+        \     components.each { component ->\n//         componentJobs[component.name]\
+        \ = {\n//             // place each in their own workspace to avoid shared\
+        \ file conflicts\n//             ws(\"^${WORKSPACE}/.component-stages/^${component.name}\"\
+        ) {\n//                 stage(\"Build ^${component.name}\") {\n//        \
+        \             steps {\n//                         sh(\n//                \
+        \             label: \"\",\n//                             script: '''\n//\
+        \                                 foreman recipe run \\\n//              \
+        \                       --dir $(pwd)\n//                                 \
+        \    --component-name $component.name\n//                             '''\n\
+        //                         )\n\n//                         if(env.CHANGE_ID\
+        \ == null) { // only skip on PRs\n//                             build job:\
+        \ 'some-deploy-job', parameters: [string(name: 'FOO', value: '123')], wait:\
+        \ false\n//                         }\n//                     }\n//      \
+        \           }\n//             }\n//         }\n//     }\n\n//     return componentJobs\n\
+        // }"
+  description: ''
+  disabled: false
+  displayName: psTest
+  resumeBlocked: false
+- kind: pipeline
+  name: psTestSCM
+  concurrentBuild: true
+  definition:
+    cpsScmFlowDefinition:
+      scriptPath: PetsmartTest/Jenkinsfile
+      scm:
+        scmGit:
+          userRemoteConfigs:
+          - userRemoteConfig:
+              credentialsId: controllers-GeneralUseGithubToken
+              url: https://github.com/jamesfluke/docker-example.git
+          branches:
+          - branchSpec:
+              name: '*/main'
+      lightweight: true
+  description: ''
+  disabled: false
+  displayName: psTestSCM
+  resumeBlocked: false
+- kind: pipeline
+  name: RampantVigilance
+  concurrentBuild: true
+  definition:
+    cpsScmFlowDefinition:
+      scriptPath: Jenkinsfile
+      scm:
+        scmGit:
+          userRemoteConfigs:
+          - userRemoteConfig:
+              url: https://github.com/Jamesafluke/UpdateBudgetJenkins.git
+          branches:
+          - branchSpec:
+              name: '*/main'
+      lightweight: true
+  description: ''
+  disabled: false
+  displayName: RampantVigilance
+  properties:
+  - conjurJITJobProperty:
+      inheritFromParent: true
+      conjurConfiguration:
+        conjurConfiguration:
+          credentialID: ''
+          certificateCredentialID: ''
+          account: ''
+          applianceURL: ''
+      authWebServiceId: ''
+      useJustInTime: false
+      hostPrefix: ''
+  - pipelineTriggers:
+      triggers:
+      - githubPush: {}
+  resumeBlocked: false
+- kind: pipeline
+  name: workspaceCachingTest
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "pipeline {\n    agent any\n    stages {\n        stage('cleanWs') {\n\
+        \            steps {\n                cleanWs()\n            }\n        }\n\
+        \        stage('checkout'){\n            steps {\n                \n     \
+        \           checkout scmGit(branches: [[name: '*/master']], extensions: [],\
+        \ userRemoteConfigs: [[url: 'https://github.com/jenkinsci/generic-webhook-trigger-plugin.git']])\n\
+        \                //checkout scmGit(branches: [[name: '*/master']], extensions:\
+        \ [], userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git']])\n\
+        \            }\n        }\n        stage('readCache') {\n            steps\
+        \ {\n                readCache name: 'mvn-cache'\n            }\n        }\n\
+        \        stage('build') {\n            steps {\n                sh './mvnw\
+        \ clean verify -Dmaven.repo.local=./maven-repo -DskipTests'\n            \
+        \    \n                sh 'wget https://downloads.cloudbees.com/cloudbees-core/traditional/operations-center/rolling/war/2.440.1.3/cloudbees-core-oc.war'\n\
+        \                sh 'mv cloudbees-core-oc.war ./maven-repo/cloudbees-core-oc.war'\n\
+        \            }\n            post {\n                success {\n          \
+        \          writeCache name: 'mvn-cache', includes: 'maven-repo/**'\n     \
+        \           }\n            }\n        }\n    }\n    // post {\n    //    \
+        \ always {\n    //         // cleanWs()\n    //     }\n    // }\n}"
+  description: ''
+  disabled: false
+  displayName: workspaceCachingTest
+  properties:
+  - conjurJITJobProperty:
+      inheritFromParent: false
+      conjurConfiguration:
+        conjurConfiguration:
+          credentialID: ''
+          certificateCredentialID: ''
+          account: ''
+          applianceURL: ''
+      authWebServiceId: ''
+      useJustInTime: false
+      hostPrefix: ''
+  resumeBlocked: false
+- kind: pipeline
+  name: workspaceCachingTest2
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "pipeline {\n    agent {label 'ubuntu'}\n    stages {\n        stage('cleanWs')\
+        \ {\n            steps {\n                cleanWs()\n            }\n     \
+        \   }\n        stage('checkout'){\n            steps {\n                \n\
+        \                checkout scmGit(branches: [[name: '*/master']], extensions:\
+        \ [], userRemoteConfigs: [[url: 'https://github.com/jenkinsci/generic-webhook-trigger-plugin.git']])\n\
+        \                //checkout scmGit(branches: [[name: '*/master']], extensions:\
+        \ [], userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git']])\n\
+        \            }\n        }\n        stage('readCache') {\n            steps\
+        \ {\n                readCache name: 'mvn-cache'\n            }\n        }\n\
+        \        stage('build') {\n            steps {\n                sh './mvnw\
+        \ clean verify -Dmaven.repo.local=./maven-repo -DskipTests'\n            }\n\
+        \            \n        }\n        stage('write-cache'){\n            steps\
+        \ {\n                sleep 60\n                writeCache name: 'mvn-cache',\
+        \ includes: 'maven-repo/**'\n            }\n            post {\n         \
+        \       failure {\n                    sh 'echo \"writeCache just failed.\"\
+        '\n                }\n                success {\n                    sh 'echo\
+        \ \"writeCache just succeeded.\"'\n                }\n            }\n    \
+        \    }\n        \n    }\n    post {\n        always {\n            cleanWs()\n\
+        \        }\n    }\n}"
+  description: ''
+  disabled: false
+  displayName: workspaceCachingTest2
+  properties:
+  - conjurJITJobProperty:
+      inheritFromParent: true
+      conjurConfiguration:
+        conjurConfiguration:
+          credentialID: ''
+          certificateCredentialID: ''
+          account: ''
+          applianceURL: ''
+      authWebServiceId: ''
+      useJustInTime: false
+      hostPrefix: ''
+  resumeBlocked: false

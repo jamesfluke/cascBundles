@@ -1,0 +1,18 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: folder
+  name: controllers
+  displayName: controllers
+  properties:
+  - folderCredentialsProperty:
+      folderCredentials:
+      - credentials:
+        - usernamePassword:
+            password: '{AQAAABAAAAAwYxdwU9cY0sG56Iq9btIG2pBmdrf0Kt9nM6tLNvlm3glCYH+O7S/KMpyOedB/J4Z41+1wd7EyUmcaMgSgSPkiBg==}'
+            description: controllers-GeneralUseGithubToken
+            id: controllers-GeneralUseGithubToken
+            usernameSecret: false
+            username: jamesfluke
+        domain: {}
