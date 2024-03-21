@@ -1,0 +1,27 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: folder
+  name: BlueTeam
+  displayName: BlueTeam
+  properties:
+  - envVars: {}
+  - itemRestrictions:
+      filter: false
+- kind: folder
+  name: RedTeam
+  description: ''
+  displayName: RedTeam
+  properties:
+  - envVars: {}
+  - itemRestrictions:
+      filter: false
+- kind: folder
+  name: YellowTeam
+  description: ''
+  displayName: YellowTeam
+  properties:
+  - envVars: {}
+  - itemRestrictions:
+      filter: false
