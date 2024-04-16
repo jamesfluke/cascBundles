@@ -4,30 +4,18 @@ jenkins:
   - "JNLP4-connect"
   - "OperationsCenter2"
   - "Ping"
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "hudson.util.DoubleLaunchChecker"
   labelAtoms:
   - name: "built-in"
   markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"
   noUsageStatistics: true
-  nodeMonitors:
-  - "architecture"
-  - "clock"
-  - diskSpace:
-      freeSpaceThreshold: "1GiB"
-      freeSpaceWarningThreshold: "2GiB"
-  - "swapSpace"
-  - tmpSpace:
-      freeSpaceThreshold: "1GiB"
-      freeSpaceWarningThreshold: "2GiB"
-  - "responseTime"
   numExecutors: 2
   primaryView:
     masters:
@@ -51,24 +39,6 @@ jenkins:
   remotingSecurity:
     enabled: true
   scmCheckoutRetryCount: 0
-  securityRealm:
-    local:
-      allowsSignup: false
-      enableCaptcha: false
-      users:
-      - id: "jfluckiger"
-        name: "James Fluckiger"
-        properties:
-        - "consoleUrlProvider"
-        - "blueSteelRedirectOptOutProperty"
-        - "myView"
-        - preferredProvider:
-            providerId: "default"
-        - "timezone"
-        - "experimentalFlags"
-        - mailer:
-            emailAddress: "jfluckiger@cloudbees.com"
-        - "apiToken"
   slaveAgentPort: 50000
   updateCenter:
     sites:
@@ -107,18 +77,14 @@ beekeeper:
 cloudBeesCasCServer:
   disableRemoteValidation: false
   visibility: false
-controllerLifecycleNotifications:
-  authenticator: "none"
-  enabled: false
-  ignoreTlsConnectionErrors: false
 license:
   certificate: |
     -----BEGIN CERTIFICATE-----
-    MIIGeDCCBGCgAwIBAgIEAho1zDANBgkqhkiG9w0BAQsFADBKMQswCQYDVQQGEwJV
+    MIIGeDCCBGCgAwIBAgIEAXfRiTANBgkqhkiG9w0BAQsFADBKMQswCQYDVQQGEwJV
     UzERMA8GA1UECAwIRGVsYXdhcmUxDjAMBgNVBAcMBUxld2VzMRgwFgYDVQQKDA9D
-    bG91ZEJlZXMsIEluYy4wHhcNMjQwMzIxMDAwMDAwWhcNMjQwNDA2MjM1OTU5WjCC
-    AnQxETAPBgorBgEEAYKpfwEBEwEzMTAwLgYKKwYBBAGCqX8BAhMgNDA5ODgwNmE5
-    NzdmYTQyNWY3MTljMGYxODYwYTMzZWExFTATBgsrBgEEAYKpfwELDhMEdHJ1ZTEV
+    bG91ZEJlZXMsIEluYy4wHhcNMjQwNDE2MDAwMDAwWhcNMjQwNTAyMjM1OTU5WjCC
+    AnQxETAPBgorBgEEAYKpfwEBEwEzMTAwLgYKKwYBBAGCqX8BAhMgYzYyOGM4YTNh
+    MzE5ZTE2NzQ5NjZmOTMzZDVkZDhmMDQxFTATBgsrBgEEAYKpfwELDhMEdHJ1ZTEV
     MBMGCysGAQQBgql/AQsNEwR0cnVlMRUwEwYLKwYBBAGCqX8BCxATBHRydWUxFTAT
     BgsrBgEEAYKpfwELDxMEdHJ1ZTEVMBMGCysGAQQBgql/AQsKEwR0cnVlMRUwEwYL
     KwYBBAGCqX8BCwwTBHRydWUxFTATBgsrBgEEAYKpfwELCxMEdHJ1ZTEVMBMGCysG
@@ -130,75 +96,74 @@ license:
     BHRydWUxFTATBgsrBgEEAYKpfwELFRMEdHJ1ZTETMBEGCisGAQQBgql/AQMTAzEw
     MDEVMBMGCisGAQQBgql/AQ4TBTEwMDAwMRUwEwYKKwYBBAGCqX8BCRMFZmFsc2Ux
     EjAQBgNVBAMTCUNsb3VkQmVlczEJMAcGA1UECxMAMRYwFAYLKwYBBAGCqX8BCxgT
-    BWZhbHNlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA17RJK+Dl9mG9
-    P9w/emMYkSArKvgFinqph3d7XfAbe4El9XFnmAXLvFxB1OcO7QX/qHRz7cX1HjDb
-    Fwc4kMZZTMTc/IXgzp4u9jj1wPQzf2jfP3SqZBSE9pSH7VcG9IhZHCpLzuczpuup
-    cM91fnvrSZ6U0cemYNqKVhXlAVkrNAJXkB+WuaOeXRHeW0CvnpbZ+LmkosD5D0ha
-    1D2P1gE5igQXIyGjVVmWgWe/4C0M7iLXx1KFYpy1CZyRvegf/SWEQ1CfYH5Yy8Fv
-    kcV6o2SJP0A+ppQowWr21VCEGANaSP0GEPwVGxFfHlM7V4q66C3L4Zu1ZmVc93h3
-    gKGy2oH/RwIDAQABozowODAMBgNVHRMEBTADAQH/MB0GA1UdDgQWBBQyTiFIk4Zd
-    BAkqZZZ9CGI0U0ZFmjAJBgNVHSMEAjAAMA0GCSqGSIb3DQEBCwUAA4ICAQAF9xv1
-    glJ6WY+e5tXfqyJocy1ExYwsC9V5dzZA+xTOQAR9YU+2SwDUKbf7j1DU2ZBU3tam
-    vrnOeZeqmGUsDGlRo8ohXGBpfTIjDyes4GIBdNCHeMG+q2qhU0p9VCb0gi563OPs
-    iKw2Q9KSNKyFRIpmUdVZgMa75LX0DnctVP7qHppMuoM1exsf2KcuY1RcUXpGczsc
-    jtB5dl9CANUc6Ug8iSxBewlga2XGz0zTvPAiktvZsdFE+nOtq5QoXO0rWCfYv47r
-    HTEYwqDGYJb08AXEfGqiZXm1YcmL1g/F+Q99+Mnaqug5ve4ndiEVLTHOlLDKV0k/
-    nnws6mlB6EBPH+ra0ydbK/IVBPYfV0TeDL74jnDKQgTA7e2R5l1sPLoRasTkInVl
-    QboZ3+zTxsVz74zwDEUPzfXWlc8dtwDCIQA93ZoZQKCg+Y7/vkDM6x3S9aJG+7gu
-    GN8PUnpsUVKP8/5dNcRkqNaJ6mTl03Y+zFuXxErKf2/H8iINcaX2p/uH2acxdC05
-    1souPC+A/72UHCIlCCh7Co1wTcttKRCH/fROLFYczVQwlEuF8wZlS5XhLpaWBLP9
-    yDJX8fZoJhx+vH5bF1E0Zr30++yy4npe2DzS6J7vUetZjyKhFLoax5xAFXgGh+Cy
-    TaVD5PFTE5t9zdm977VGd6xT3l8gCmkPsbw0kg==
+    BWZhbHNlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvap6S4tOAJSz
+    7IkKbUinxI9WagZcyh6BmSzgIEYrhsFUZlEb53Ya0XSz4+wAniAtFfA9D1yTx9wh
+    MtSuk0/uH0Z0DPEcQcz4Df4u37mRqmHaRGsjtr1JFxEqLds0kk1gx0AAEi21lvQZ
+    gIt+HO2nbsiylH2iY3g4wyG/jAs4d3l+AMShj7FFT8UlQU9qULMRUxaOM2mzmxoe
+    cErJo3Mmbap2vdF+YP+DGvfA2Wkzk8o7oZ3X2nv2G1S1NMVZuT/pU5rqM2sQJL77
+    ZtJCQqlMNzKIbNIelUgIEbkXsf8oSrLS0RBtqxVQ2DTLmVNveOMdvEXudKQV2uj6
+    w3IgFVHCIwIDAQABozowODAMBgNVHRMEBTADAQH/MB0GA1UdDgQWBBTcrx1JPkze
+    xq+HbCrxYb65px3EWDAJBgNVHSMEAjAAMA0GCSqGSIb3DQEBCwUAA4ICAQAkHhl/
+    WmHdc2JNlBxZbdOw7RljasLtxrKMBdHwhJ7ChZ3453wJwM3elQPC+S961APmW/2+
+    WfTA66D5reRtQfCF1Vt9dA+AmogGlAfOwOnzcfIU7ZWQHhxNBWkcuqTZvsE2dg4C
+    y63I86Q4Cy+Z+7FyDMLZcMkzD724b8/aBRu6jnWTrCHHA6iBj+JQrQ3mBRGRI71Y
+    w1Aky7Zlxy55WgsvocIS6xmUdPCIudmEt/EfuzX54KrMsQdSHYwXEHbn2qPTzi0X
+    CZAADRspBm2UJpwSm8q75PIeAaUoLqROLiHkL8D4OVOAvc9DNgoGNmCjj3zdms35
+    kIxV2fTXYWAncv9aaEFpF7a9IS5DCK+jGLO1LSgwxDgwFZ3FobK6uVWz+hzIJnvf
+    atoL+I9wr4RSjTNnt/RZv7MKnkGpcUzbWvFQpLnG0KC+DDqLlybvmfdYZS9bjFyS
+    rMexSpClEZo95DsEnkcG693uLrU6cuein4kUplvbNGM7xYHw5m/PsSnTFQ48ZmpR
+    bPmP2QcR+Ttvca4VoPsz5QoDEy+aJr6cymTx4KXAip0Y5UQaBFWtU95gJo6FwitL
+    4UqPLcv+RYNfrfSa+Htw5RTO6q1PzV9Sl9y7pJudHwo4TwVBnWkMWtqwRwnIHk4K
+    O3sUWxFDvSOY/WN1wuUwpNzFarO9mwfIYuhZxQ==
     -----END CERTIFICATE-----
   key: |
     -----BEGIN RSA PRIVATE KEY-----
-    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
+    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
     -----END RSA PRIVATE KEY-----
 masterprovisioning:
   dockerImageDefinitionConfiguration:
     images:
-    - imageTag: "cloudbees/cloudbees-core-mm:2.440.2.1"
-      name: "CloudBees CI - Managed Controller - 2.440.2.1"
+    - imageTag: "cloudbees/cloudbees-core-mm:2.426.3.3"
+      name: "CloudBees CI - Managed Controller - 2.426.3.3"
   kubernetes:
     clusterEndpoints:
     - id: "default"
+      ingressClass: "nginx"
       jenkinsUrl: "http://cjoc.cloudbees-core.svc.cluster.local/cjoc/"
       name: "kubernetes"
-      serviceExposure:
-        ingress:
-          ingressClass: "nginx"
     cpus: "1.0"
     disk: 50
     fsGroup: "1000"
-    globalJavaOptions: "-Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.440.2.1\
+    globalJavaOptions: "-Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.426.3.3\
       \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
       \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
-      http\" -Dcom.cloudbees.networking.hostname=\"cloudbees-core.example.com\" -Dcom.cloudbees.networking.port=80\
-      \ -Dcom.cloudbees.networking.operationsCenterName=\"cjoc\""
+      https\" -Dcom.cloudbees.networking.hostname=\"jfluckiger.ps.beescloud.com\"\
+      \ -Dcom.cloudbees.networking.port=443 -Dcom.cloudbees.networking.operationsCenterName=\"\
+      cjoc\""
     javaOptions: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled\
       \ -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0"
     livenessInitialDelaySeconds: 300
@@ -208,6 +173,7 @@ masterprovisioning:
     readinessFailureThreshold: 100
     readinessInitialDelaySeconds: 30
     readinessTimeoutSeconds: 5
+    storageClassName: "ssd-cloudbees-core-cloudbees-core"
     terminationGracePeriodSeconds: 1200
 support:
   automatedBundleConfiguration:
@@ -268,9 +234,6 @@ globalCredentialsConfiguration:
   configuration:
     providerFilter: "none"
     typeFilter: "none"
-appearance:
-  prism:
-    theme: PRISM
 security:
   anonymizeSupportBundle:
     enabled: false
@@ -278,6 +241,11 @@ security:
     creationOfLegacyTokenEnabled: false
     tokenGenerationOnCreationEnabled: false
     usageStatisticsEnabled: true
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
   sSHD:
     port: -1
   securitySettingsEnforcement:
@@ -291,21 +259,31 @@ unclassified:
     configuredBuildDiscarders:
     - "jobBuildDiscarder"
   bundleStorageService:
-    activated: false
+    activated: true
+    bundles:
+    - name: "casc-scm"
+      retriever:
+        SCM:
+          scmSource:
+            git:
+              id: "008328f7-2bd2-4eed-abef-de305e81e77c"
+              remote: "https://github.com/jamesfluke/cascBundles.git"
+              traits:
+              - "gitBranchDiscovery"
     checkOutTimeout: 600
     pollingPeriod: 120
     purgeOnDeactivation: false
   bundleUpdateTiming:
-    automaticReload: false
-    automaticRestart: false
+    automaticReload: true
+    automaticRestart: true
     rejectWarnings: false
-    reloadAlwaysOnRestart: false
+    reloadAlwaysOnRestart: true
     skipNewVersions: false
   cascAutoControllerProvisioning:
     duration: 60
     fireAndForget: true
     initialDelay: 15
-    provisionControllerOnCreation: false
+    provisionControllerOnCreation: true
     timeout: 600
   cascItemsConfiguration:
     variableInterpolationEnabledForAdmin: false
@@ -315,9 +293,11 @@ unclassified:
   fingerprints:
     fingerprintCleanupDisabled: false
     storage: "file"
+  gitHubPluginConfig:
+    hookUrl: "https://jfluckiger.ps.beescloud.com/cjoc/github-webhook/"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://cloudbees-core.example.com/cjoc/"
+    url: "https://jfluckiger.ps.beescloud.com/cjoc/"
   mailer:
     charset: "UTF-8"
     useSsl: false
@@ -326,6 +306,16 @@ unclassified:
     enabled: false
   pollSCM:
     pollingThreadCount: 10
+  prismConfiguration:
+    theme: PRISM
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
   usageStatisticsCloudBees:
     disabledJenkinsUsageStatistics: true
     usageStatisticsCollected: true
@@ -334,6 +324,10 @@ unclassified:
 tool:
   cloudbeesPluginUsageAnalyzer:
     enabled: true
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
   mavenGlobalConfig:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"

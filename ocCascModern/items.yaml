@@ -1,27 +1,48 @@
 removeStrategy:
   rbac: SYNC
   items: NONE
+
 items:
-- kind: folder
-  name: BlueTeam
-  displayName: BlueTeam
-  properties:
-  - envVars: {}
-  - itemRestrictions:
-      filter: false
-- kind: folder
-  name: RedTeam
-  description: ''
-  displayName: RedTeam
-  properties:
-  - envVars: {}
-  - itemRestrictions:
-      filter: false
-- kind: folder
-  name: YellowTeam
-  description: ''
-  displayName: YellowTeam
-  properties:
-  - envVars: {}
-  - itemRestrictions:
-      filter: false
+  - kind: folder
+    displayName: BlueTeam
+    name: BlueTeam
+    description: 'BlueTeam folder'
+    items:
+      - kind: managedController
+        name: BlueController1
+        configuration:
+          kubernetes:
+            allowExternalAgents: false
+            terminationGracePeriodSeconds: 1200
+            image: CloudBees CI - Managed Controller - 2.426.3.3
+            memory: 3072
+            fsGroup: '1000'
+            cpus: 1.0
+            readinessTimeoutSeconds: 5
+            livenessInitialDelaySeconds: 300
+            readinessInitialDelaySeconds: 30
+            clusterEndpointId: default
+            disk: 50
+            readinessFailureThreshold: 100
+            livenessTimeoutSeconds: 10
+            storageClassName: ssd-cloudbees-core-cloudbees-core
+            domain: BlueController1
+            livenessPeriodSeconds: 10
+            javaOptions: -XshowSettings:vm -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled
+              -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0
+            yaml: ''
+        description: 'Description for BlueController1'
+        displayName: BlueController1
+        properties:
+        - configurationAsCode: {}
+        - sharedHeaderLabelOptIn:
+            optIn: true
+        - healthReporting:
+            enabled: true
+        - owner:
+            delay: 5
+            owners: ''
+        - envelopeExtension:
+            allowExceptions: false
+        - sharedConfigurationOptOut:
+            optOut: false

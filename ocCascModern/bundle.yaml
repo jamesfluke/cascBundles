@@ -4,8 +4,8 @@ description: "ocCasc"
 version: "1"
 # jcasc:
 #   - "jenkins.yaml"
-# plugins:
-#   - "plugins.yaml"
+plugins:
+  - "plugins.yaml"
 # rbac:
 #   - "rbac.yaml"
 items:
