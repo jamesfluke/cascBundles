@@ -34,8 +34,7 @@ items:
         description: 'Description for bluecontroller1'
         displayName: bluecontroller1
         properties:
-        - configurationAsCode:
-          bundle: main/controllerCascGlobal
+        - configurationAsCode: {}
         - sharedHeaderLabelOptIn:
             optIn: true
         - healthReporting:
