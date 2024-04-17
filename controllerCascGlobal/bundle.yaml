@@ -1,13 +1,11 @@
 apiVersion: "1"
 id: "controllerCascGlobal"
 description: "controllerCascGlobal"
-availabilityPattern: "controllers/.*"
+availabilityPattern: ".*"
 version: "4"
 plugins:
   - "plugins.yaml"
 catalog:
   - "plugin-catalog.yaml"
-rbac:
-  - "rbac.yaml"
 items:
   - "items.yaml"
