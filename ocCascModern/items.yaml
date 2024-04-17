@@ -46,3 +46,46 @@ items:
             allowExceptions: false
         - sharedConfigurationOptOut:
             optOut: false
+  - kind: folder
+    displayName: redteam
+    name: redteam
+    description: 'redteam folder'
+    items:
+      - kind: managedController
+        name: redcontroller1
+        configuration:
+          kubernetes:
+            allowExternalAgents: false
+            terminationGracePeriodSeconds: 1200
+            image: CloudBees CI - Managed Controller - 2.426.3.3
+            memory: 3072
+            fsGroup: '1000'
+            cpus: 1.0
+            readinessTimeoutSeconds: 5
+            livenessInitialDelaySeconds: 300
+            readinessInitialDelaySeconds: 30
+            clusterEndpointId: default
+            disk: 50
+            readinessFailureThreshold: 100
+            livenessTimeoutSeconds: 10
+            storageClassName: ssd-cloudbees-core-cloudbees-core
+            domain: redcontroller1
+            livenessPeriodSeconds: 10
+            javaOptions: -XshowSettings:vm -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled
+              -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0
+            yaml: ''
+        description: 'Description for redcontroller1'
+        displayName: redcontroller1
+        properties:
+        - configurationAsCode: {}
+        - sharedHeaderLabelOptIn:
+            optIn: true
+        - healthReporting:
+            enabled: true
+        - owner:
+            delay: 5
+            owners: ''
+        - envelopeExtension:
+            allowExceptions: false
+        - sharedConfigurationOptOut:
+            optOut: false
