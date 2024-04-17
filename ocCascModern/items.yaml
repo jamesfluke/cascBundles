@@ -29,7 +29,7 @@ items:
             domain: bluecontroller1
             livenessPeriodSeconds: 10
             javaOptions: -XshowSettings:vm -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled
-              -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dcom.cloudbees.jenkins.plugins.pipeline.explorer.log.viewer.AdvancedConsoleAction.MAP_ENABLED=true
+              -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0
             yaml: ''
         description: 'Description for bluecontroller1'
         displayName: bluecontroller1
