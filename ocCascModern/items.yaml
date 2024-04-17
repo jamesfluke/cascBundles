@@ -4,12 +4,12 @@ removeStrategy:
 
 items:
   - kind: folder
-    displayName: BlueTeam
-    name: BlueTeam
-    description: 'BlueTeam folder'
+    displayName: blueteam
+    name: blueteam
+    description: 'blueteam folder'
     items:
       - kind: managedController
-        name: BlueController1
+        name: bluecontroller1
         configuration:
           kubernetes:
             allowExternalAgents: false
@@ -26,13 +26,13 @@ items:
             readinessFailureThreshold: 100
             livenessTimeoutSeconds: 10
             storageClassName: ssd-cloudbees-core-cloudbees-core
-            domain: BlueController1
+            domain: bluecontroller1
             livenessPeriodSeconds: 10
             javaOptions: -XshowSettings:vm -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled
               -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0
             yaml: ''
-        description: 'Description for BlueController1'
-        displayName: BlueController1
+        description: 'Description for bluecontroller1'
+        displayName: bluecontroller1
         properties:
         - configurationAsCode: {}
         - sharedHeaderLabelOptIn:
