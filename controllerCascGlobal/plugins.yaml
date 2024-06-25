@@ -138,4 +138,5 @@ plugins:
 - id: workflow-scm-step
 - id: workflow-step-api
 - id: workflow-support
+- id: manage-permission
 
