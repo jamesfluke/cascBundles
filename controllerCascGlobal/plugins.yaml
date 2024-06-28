@@ -139,4 +139,5 @@ plugins:
 - id: workflow-step-api
 - id: workflow-support
 - id: manage-permission
+- id: beer
 
