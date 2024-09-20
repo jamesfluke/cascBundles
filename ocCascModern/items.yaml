@@ -14,7 +14,7 @@ items:
           kubernetes:
             allowExternalAgents: false
             terminationGracePeriodSeconds: 1200
-            image: CloudBees CI - Managed Controller - 2.426.3.3
+            image: CloudBees CI - Managed Controller - 2.462.2.2
             memory: 3072
             fsGroup: '1000'
             cpus: 1.0
@@ -57,7 +57,7 @@ items:
           kubernetes:
             allowExternalAgents: false
             terminationGracePeriodSeconds: 1200
-            image: CloudBees CI - Managed Controller - 2.426.3.3
+            image: CloudBees CI - Managed Controller - 2.462.2.2
             memory: 3072
             fsGroup: '1000'
             cpus: 1.0
