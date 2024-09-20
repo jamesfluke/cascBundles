@@ -3,10 +3,10 @@ id: "ocCasc"
 version: "3"
 jcasc:
   - "jenkins.yaml"
-#plugins:
-#  - "plugins.yaml"
+plugins:
+  - "plugins.yaml"
   #OC can't have plugin-catalog.
 # rbac:
 #   - "rbac.yaml"
-#items:
-#  - "items.yaml"
+items:
+  - "items.yaml"
