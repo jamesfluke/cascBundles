@@ -1,4 +1,4 @@
-apiVersion: 2
+apiVersion: "2"
 id: "ocCasc"
 version: "3"
 jcasc:
