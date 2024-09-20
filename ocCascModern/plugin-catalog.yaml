@@ -1,0 +1,12 @@
+type: plugin-catalog
+version: '1' 
+name: casc-catalog
+displayName: casc Catalog
+configurations:
+- description: casc
+  includePlugins:
+    beer:  
+      version: "1.0"  
+    beekeeperExceptions: 
+      support-core:
+        version: "2.70"
